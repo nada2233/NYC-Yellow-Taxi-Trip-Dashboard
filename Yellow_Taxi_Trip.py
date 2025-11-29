@@ -98,7 +98,7 @@ elif page == "Trip Analysis":
     col1, col2, col3 = st.columns(3)
 
     col1.metric('Total Trips', len(df))
-    col2.metric('Total Revenue', f"${df['fare_amount'].sum():,.2f}")
+    col2.metric('Total Revenue', f"${df['total_amount'].sum():,.2f}")
     col3.metric('Total Passengers', df['passenger_count'].sum())
 
 
@@ -187,3 +187,4 @@ elif page == "Passenger Insights":
 
     avg_distance_passenger = df.groupby("passenger_count")["trip_distance"].mean().reset_index()
     st.plotly_chart(px.bar(avg_distance_passenger, x='passenger_count', y='trip_distance', text_auto=True, title="Average Trip Distance by Passenger Count"))
+
