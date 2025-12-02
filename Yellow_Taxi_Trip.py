@@ -130,20 +130,20 @@ elif page == "Time Analysis":
     st.title("Time Analysis ⏰")
 
     tip_hour = df.groupby("hour_pickup")["tip_amount"].mean().reset_index()
-    st.plotly_chart(px.line(tip_hour, x='hour_pickup', y='tip_amount', title="Pickup Hours vs Tip Amount"))
+    st.plotly_chart(px.line(tip_hour, x='hour_pickup', y='tip_amount',text='hour_pickup' ,title="Pickup Hours vs Average Tip Amount"))
 
     avg_tip_day = df.groupby("day")["tip_amount"].mean().reset_index()
-    st.plotly_chart(px.bar(avg_tip_day, x='day', y='tip_amount', text_auto=True, title="Day of the Week with Highest Average Tip"))
+    st.plotly_chart(px.bar(avg_tip_day, x='day', y='tip_amount', text_auto=True, title="Day of the Week with Highest Average Tip amount"))
 
     avg_tip_period = df.groupby("day_period")["tip_amount"].mean().reset_index()
-    st.plotly_chart(px.bar(avg_tip_period, x='day_period', y='tip_amount', text_auto=True, title="Part of Day with Highest Average Tip"))
+    st.plotly_chart(px.bar(avg_tip_period, x='day_period', y='tip_amount', text_auto=True, title="Day period with Highest Average Tip amount"))
 
     passengers_month_period = df.groupby(["month","day_period"])["passenger_count"].sum().unstack().reset_index()
-    st.plotly_chart(px.bar(passengers_month_period, x='month', y=passengers_month_period.columns[1:], text_auto=True, title="Total Passengers per Period Each Month"))
+    st.plotly_chart(px.bar(passengers_month_period, x='month', y=passengers_month_period.columns[1:], text_auto=True, title="Total Passengers per Period for Each Month"))
 
     cash_ratio = df[df["payment_type"]=="Cash"].groupby("day_period")["payment_type"].count() / df.groupby("day_period")["payment_type"].count()
     cash_ratio = cash_ratio.reset_index(name='ratio')
-    st.plotly_chart(px.bar(cash_ratio, x='day_period', y='ratio', text_auto=True, title="Period with Highest Cash Ratio"))
+    st.plotly_chart(px.bar(cash_ratio, x='day_period', y='ratio', text_auto=True, title="💵which period of tha day have the Highest Cash Ratio"))
 
 # ---------------------------
 # Fare Revenue Analysis
@@ -158,10 +158,10 @@ elif page == "Fare Revenue Analysis":
     st.plotly_chart(px.bar(max_fare_day, x='day', y='fare_amount', text_auto=True, title="Highest Fare Amount per Day"))
 
     fare_month = df.groupby("month")["fare_amount"].sum().reset_index()
-    st.plotly_chart(px.bar(fare_month, x='month', y='fare_amount', text_auto=True, title="Total Fare by Month"))
+    st.plotly_chart(px.bar(fare_month, x='month', y='fare_amount', text_auto=True, title="Total Fare amount by Month"))
 
     avg_fare_period = df.groupby("day_period")["fare_amount"].mean().reset_index()
-    st.plotly_chart(px.bar(avg_fare_period, x='day_period', y='fare_amount', text_auto=True, title="Highest Average Fare by Period"))
+    st.plotly_chart(px.bar(avg_fare_period, x='day_period', y='fare_amount', text_auto=True, title="Highest Average Fare amount for day Period"))
 
     max_fare_payment = df.groupby("payment_type")["fare_amount"].max().reset_index()
     st.plotly_chart(px.bar(max_fare_payment, x='payment_type', y='fare_amount', text_auto=True, title="Highest Fare Amount per Payment Type"))
@@ -180,11 +180,10 @@ elif page == "Passenger Insights":
     st.plotly_chart(px.bar(total_passenger, x='passenger_count', y='fare_amount', text_auto=True, title="Total Amount Paid vs Passenger Count"))
 
     tip_passenger = df.groupby("passenger_count")["tip_amount"].mean().reset_index()
-    st.plotly_chart(px.bar(tip_passenger, x='passenger_count', y='tip_amount', text_auto=True, title="Trips with More Passengers Tend to Give Higher Tips"))
+    st.plotly_chart(px.bar(tip_passenger, x='passenger_count', y='tip_amount', text_auto=True, title="🧑‍🤝‍🧑Trips with More Passengers Tend to Give Higher Tips"))
 
-    distance_passenger = df.groupby("passenger_count")["trip_distance"].mean().reset_index()
-    st.plotly_chart(px.bar(distance_passenger, x='passenger_count', y='trip_distance', text_auto=True, title="Trip Distance vs Passenger Count"))
 
     avg_distance_passenger = df.groupby("passenger_count")["trip_distance"].mean().reset_index()
     st.plotly_chart(px.bar(avg_distance_passenger, x='passenger_count', y='trip_distance', text_auto=True, title="Average Trip Distance by Passenger Count"))
+
 
